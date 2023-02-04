@@ -10,3 +10,5 @@ ca = certifi.where()
 client = MongoClient('mongodb+srv://a8sparta:naturecalls@cluster0.rtdxuho.mongodb.net/?retryWrites=true&w=majority',tlsCAFile=ca)
 db = client.Naturecalls
 collection = db["ToiletInfo"]
+
+# branch git remote push test
