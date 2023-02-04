@@ -30,7 +30,7 @@ function myLocation() {
         // 모든 데이터를 저장 및 노출하는 step이 필요 => 어떤기준으로 리스트를 주는지 불명확 => 현재위치 기준의 화장실들이 없는 경우 발생
         $.ajax({
             type: "GET",
-            url: "/toiletTest",
+            url: "/toiletInfo",
             data: {},
             success: function (response) {
                 // api 성공시 로직
@@ -42,7 +42,7 @@ function myLocation() {
                 for (var i in data) {
                     const position = {};
                     position["toiletnum"] = data[i]["toilet_num"];
-                    position["toiletname"] = data[i]["toilet_name"];
+                    position["roadaddr"] = data[i]["roadAddr"];
                     position["latlng"] = new kakao.maps.LatLng(
                         data[i]["y_wgs84"],
                         data[i]["x_wgs84"]
@@ -88,7 +88,7 @@ function testToilet() {
     console.log("버튼 눌렀음")
     $.ajax({
         type: 'GET',
-        url: '/toiletTest',
+        url: '/toiletInfo',
         data: {},
         success: function (response) {
             let rows = response['toilets']
@@ -112,6 +112,7 @@ function testToilet() {
         }
     })
 }
+
 
 // 지우지말것 공공api에서 불러온 데이터 바탕으로 화장실 마커 생성하는 ajax코드
 // $.ajax({
