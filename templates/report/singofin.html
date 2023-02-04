@@ -11,25 +11,6 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
             crossorigin="anonymous"></script>
-    <script>
-        var modal = document.getElementById("myModal");
-        var btn = document.getElementById("submit-button");
-        var span = document.getElementsByClassName("close")[0];
-
-        btn.onclick = function () {
-            modal.style.display = "block";
-        }
-
-        span.onclick = function () {
-            modal.style.display = "none";
-        }
-
-        window.onclick = function (event) {
-            if (event.target == modal) {
-                modal.style.display = "none";
-            }
-        }
-    </script>
 
     <title>불편 신고</title>
     <style>
@@ -48,41 +29,6 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-        }
-
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgb(0, 0, 0);
-            background-color: rgba(0, 0, 0, 0.4);
-        }
-
-        .modal-content {
-            background-color: #fefefe;
-            margin: 15% auto;
-            padding: 20px;
-            border: 1px solid #888;
-            width: 80%;
-        }
-
-        .close {
-            color: #aaa;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-        }
-
-        .close:hover,
-        .close:focus {
-            color: black;
-            text-decoration: none;
-            cursor: pointer;
         }
 
     </style>
@@ -137,17 +83,79 @@
         <p></p>
         <p></p>
         <p></p>
-        <div class="d-grid gap-2 col-13 mx-auto">
-            <button type="button" onclick="alert('신고가 완료 되었습니다.')" class="btn btn-primary btn-lg">불편 신고 제출하기</button>
-        </div>
-        <div id="modal">
-            <div class="modalconent">
-                <h1></h1>
+        <!--        <div class="d-grid gap-2 col-13 mx-auto">-->
+        <!--            <button type="button" onclick="alert('신고가 완료 되었습니다.')" class="btn btn-primary btn-lg">불편 신고 제출하기</button>-->
+        <!--        </div>-->
+        <button id="submit-button">신고 접수</button>
 
-                <p>팝업 내용 샬라샬라...</p>
-                <button id="button">닫기</button>
+        <div id="myModal" class="modal">
+            <div class="modal-content">
+                <span class="close"></span>
+                <p>신고가 접수 되었습니다.</p>
             </div>
         </div>
+        <script>
+            var modal = document.getElementById("myModal");
+            var btn = document.getElementById("submit-button");
+            var span = document.getElementsByClassName("close")[0];
+
+            btn.onclick = function () {
+                modal.style.display = "block";
+            }
+
+            span.onclick = function () {
+                modal.style.display = "none";
+            }
+
+            window.onclick = function (event) {
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                }
+            }
+        </script>
+
+        <style>
+            .modal {
+                display: none;
+                position: fixed;
+                z-index: 1;
+                left: 0;
+                top: 0;
+                width: 100%;
+                height: 100%;
+                overflow: auto;
+                background-color: rgb(0, 0, 0);
+                background-color: rgba(0, 0, 0, 0.4);
+            }
+
+            .modal-content {
+                background-color: #fefefe;
+                margin: 15% auto;
+                padding: 20px;
+                border: 1px solid #888;
+                width: 80%;
+            }
+
+            .close {
+                color: #aaa;
+                float: right;
+                font-size: 28px;
+                font-weight: bold;
+            }
+
+            .close:hover,
+            .close:focus {
+                color: black;
+                text-decoration: none;
+                cursor: pointer;
+            }
+        </style>
+
+
+        <!--                <p>팝업 내용 샬라샬라...</p>-->
+        <!--                <button id="button">닫기</button>-->
+    </div>
+</div>
 </body>
 
 </html>
