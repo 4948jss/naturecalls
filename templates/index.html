@@ -1,36 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
+<head>
+    <meta charset="UTF-8"/>
     <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, user-scalable=yes"
+            name="viewport"
+            content="width=device-width, initial-scale=1, user-scalable=yes"
     />
     <title>카카오 지도 API 테스트페이지</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script
-      type="text/javascript"
-      src="//dapi.kakao.com/v2/maps/sdk.js?appkey=1868ee8497f900b93026d5face3cb849"
+            type="text/javascript"
+            src="//dapi.kakao.com/v2/maps/sdk.js?appkey=1868ee8497f900b93026d5face3cb849"
     ></script>
     <script src="static/app.js" defer></script>
-  </head>
-  <body>
-    테스트페이지!
-    <div>
-      <input type="text" id="contentInput" placeholder="내용" />
-      <button onclick="inputDB()" type="button">db에 정보 넣기</button>
-      <button onclick="getcoords()" type="button">json좌표받기(공공API)</button>
-      <button onclick="getJSON()" type="button">json좌표받기(내부API))</button>
+</head>
+<body>
 
-    </div>
-    <div>
-      카카오맵 들어갈자리
-      <p>
-        <button onclick="myLocation()" type="button">찾아줘!!</button>
-        <button onclick="toiletLoc()" type="button">찾아줘!!(마커표시)</button>
-      </p>
-      <p id="result"></p>
-      <div id="map" style="width: 500px; height: 400px"></div>
-    </div>
-  </body>
+
+<div>
+    급해!<br>
+    신호가 오면 망설이지 마세요!<br>
+    🚨
+</div>
+<div>
+    <button onclick="myLocation()" type="button">찾아줘!!</button>
+    <button onclick="testToilet()" type="button">장실정보GET!</button>
+
+    <p id="result"></p>
+    <div id="map" style="width: 500px; height: 400px"></div>
+</div>
+</body>
 </html>
