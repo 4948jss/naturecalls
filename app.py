@@ -11,6 +11,10 @@ client = MongoClient('mongodb+srv://a8sparta:naturecalls@cluster0.rtdxuho.mongod
 db = client.Naturecalls
 collection = db["ToiletInfo"]
 
+# 랜딩페이지
+@app.route('/')
+def home():
+    return render_template('index.html')
 
 # 리뷰 작성 화면 (/review/write/화장실번호)
 @app.route('/review/write/<toilet_num_receive>')
@@ -67,3 +71,6 @@ def get_next_sequence():
         new=True
     )
     return ret['seq']
+
+if __name__ == '__main__':
+    app.run('0.0.0.0', port=5000, debug=True)
