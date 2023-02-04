@@ -1,0 +1,111 @@
+<head>
+    <title>kakao map test</title>
+    <style>
+        .overlay {
+            background: white;
+            position: absolute;
+            left: 0;
+            bottom: 40px;
+            width: 288px;
+            height: 255px;
+            margin-left: -144px;
+            text-align: center;
+            font-size: 12px;
+            font-family: 'Malgun Gothic', dotum, '돋움', sans-serif;
+            line-height: 1.5;
+            overflow: visible;
+        }
+
+        .wrap * {
+            padding: 0;
+            margin: 0;
+        }
+
+        .wrap .info {
+            width: 286px;
+            height: 230px;
+            overflow: hidden;
+            background: #fff;
+        }
+
+        .wrap .info:nth-child(1) {
+            border: 0;
+            box-shadow: 0px 0px 0px 0px #888;
+        }
+
+        .info .title {
+            padding: 5px 0 0 10px;
+            height: 30px;
+            background: #eee;
+            border-bottom: 1px solid #ddd;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .info .body {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .info .desc {
+            position: relative;
+            margin: 13px 0 0 13px;
+            height: 230px;
+        }
+
+        .desc .ellipsis {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .desc .jibun {
+            font-size: 11px;
+            color: #888;
+            margin-top: -2px;
+        }
+
+        .info .link {
+            color: #5085BB;
+        }
+
+        .close {
+            margin: 3px;
+        }
+
+    </style>
+    <script>
+        $(document).ready(function () {
+            show_order();
+        });
+
+        function show_order() {
+            $.ajax({
+                type: 'GET',
+                url: '/mars',
+                data: {},
+                success: function (response) {
+                    alert(response['msg'])
+                }
+            });
+        }
+
+        function save_order() {
+            $.ajax({
+                type: 'POST',
+                url: '/mars',
+                data: {sample_give: '데이터전송'},
+                success: function (response) {
+                    alert(response['msg'])
+                }
+            });
+        }
+
+    </script>
+</head>
+<body>
+<div id="map" style="width:1080px;height:720px;"></div>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=0841918434017ebab85facfb169cf5d1"></script>
+<script src="static/app.js" defer></script>
+</body>
+</html>
