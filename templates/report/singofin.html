@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous"></script>
+    <script>
+        var modal = document.getElementById("myModal");
+        var btn = document.getElementById("submit-button");
+        var span = document.getElementsByClassName("close")[0];
+
+        btn.onclick = function () {
+            modal.style.display = "block";
+        }
+
+        span.onclick = function () {
+            modal.style.display = "none";
+        }
+
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
+
+    <title>불편 신고</title>
+    <style>
+        .mysingo {
+            background-color: white;
+            height: 200px;
+            width: 200px;
+            background-image: url("https://creazilla-store.fra1.digitaloceanspaces.com/emojis/45696/thinking-face-emoji-clipart-md.png");
+            background-position: center;
+            background-size: cover;
+
+        }
+
+        .form {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0, 0, 0);
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+    </style>
+</head>
+
+<body>
+<div class="form">
+    <div class="mysingo"></div>
+    <div class="btn-group-vertical">
+
+        <div class="d-grid gap-2 col-10 mx-auto">
+            <input type="checkbox" class="btn-check" id="no_toilet" autocomplete="off">
+            <label class="btn btn-outline-primary btn-sm" for="no_toilet">화장실이 장소에 없어요</label>
+        </div>
+        <p>
+
+        </p>
+        <div class="d-grid gap-2 col-15 mx-auto">
+            <input type="checkbox" class="btn-check" id="no_time" autocomplete="off">
+            <label class="btn btn-outline-primary btn-sm" for="no_time">운영시간 정보와 안 맞아요</label>
+        </div>
+        <p>
+
+        </p>
+        <div class="d-grid gap-2 col-20 mx-auto">
+            <input type="checkbox" class="btn-check" id="no_answer" autocomplete="off">
+            <label class="btn btn-outline-primary btn-sm" for="no_answer">관리자가 전화를 안 받아요</label>
+        </div>
+        <p>
+
+        </p>
+        <div class="d-grid gap-2 col-16 mx-auto">
+            <input type="checkbox" class="btn-check" id="no_cctv" autocomplete="off">
+            <label class="btn btn-outline-primary btn-sm" for="no_cctv">CCTV가 없어요</label>
+        </div>
+        <p>
+
+        </p>
+        <div class="d-grid gap-2 col-6 mx-auto">
+            <input type="checkbox" class="btn-check" id="no_bell" autocomplete="off">
+            <label class="btn btn-outline-primary btn-sm" for="no_bell">비상벨이 없어요</label>
+        </div>
+        <p>
+
+        </p>
+        <div class="d-grid gap-2 col-20 mx-auto">
+            <input type="checkbox" class="btn-check" id="no_diaper" autocomplete="off">
+            <label class="btn btn-outline-primary btn-sm" for="no_diaper">기저귀 교환대가 없거나 고장 났어요</label>
+        </div>
+
+        <p></p>
+        <p></p>
+        <p></p>
+        <p></p>
+        <div class="d-grid gap-2 col-13 mx-auto">
+            <button type="button" onclick="alert('신고가 완료 되었습니다.')" class="btn btn-primary btn-lg">불편 신고 제출하기</button>
+        </div>
+        <div id="modal">
+            <div class="modalconent">
+                <h1></h1>
+
+                <p>팝업 내용 샬라샬라...</p>
+                <button id="button">닫기</button>
+            </div>
+        </div>
+</body>
+
+</html>
