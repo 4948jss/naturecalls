@@ -121,16 +121,18 @@ function getToilet() {
                 const position = {};
                 position["content"] = '<div class="wrap">' +
                     '    <div class="info">' +
-                    '        <div class="title">' + data[i]["toilet_num"] + " : " + data[i]["toilet_name"] + '</div>' +
+                    '        <div class="title">' + data[i]["toilet_num"] + " : " + data[i]["toilet_name "] + '</div>' +
                     '        <div class="body">' +
                     '            <div class="desc">' +
-                    '                <div class="text">' + "구분 : " + data[i]["toilet_class"] + '</div>' +
-                    '                <div class="text">' + "관리자 : " + data[i]["toilet_manager"] + '</div>' +
+                    '                <div class="text">' + "구분 : " + data[i]["toilet_class "] + '</div>' +
+                    '                <div class="text">' + "지번주소 : " + data[i]["jibunAddr"] + '</div>' +
+                    '                <div class="text">' + "도로명주소 : " + data[i]["roadAddr"] + '</div>' +
+                    '                <div class="text">' + "관리자 : " + data[i]["toilet_manager "] + '</div>' +
                     '                <div class="text">' + "전화번호 : " + data[i]["toilet_phone"] + '</div>' +
-                    '                <div class="text">' + "CCTV : " + data[i]["toilet_cctv"] + '</div>' +
-                    '                <div class="text">' + "신고벨 : " + data[i]["toilet_bell"] + '</div>' +
-                    '                <div class="text">' + "장애인 화장실 : " + data[i]["toilet_disabled"] + '</div>' +
-                    '                <div class="text">' + "기저귀 교환대 : " + data[i]["toilet_diaper"] + '</div>' +
+                    '                <div class="text">' + "CCTV : " + data[i]["toilet_cctv "] + '</div>' +
+                    '                <div class="text">' + "신고벨 : " + data[i]["toilet_bell "] + '</div>' +
+                    '                <div class="text">' + "장애인 화장실 : " + data[i]["toilet_disabled "] + '</div>' +
+                    '                <div class="text">' + "기저귀 교환대 : " + data[i]["toilet_diaper "] + '</div>' +
                     '            </div>' +
                     '        </div>' +
                     '    </div>' +
