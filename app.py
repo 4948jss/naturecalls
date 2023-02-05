@@ -1,7 +1,6 @@
 import certifi
-import csv
 from pymongo import MongoClient
-from flask import Flask, render_template, request, jsonify, send_from_directory
+from flask import Flask, render_template, request, jsonify
 
 app = Flask(__name__)
 ca = certifi.where()
