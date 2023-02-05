@@ -1,0 +1,67 @@
+.overlay {
+    background: white;
+    position: absolute;
+    left: 0;
+    bottom: 40px;
+    width: 288px;
+    height: 150px;
+    margin-left: -144px;
+    text-align: center;
+    font-size: 12px;
+    font-family: 'Malgun Gothic', dotum, '돋움', sans-serif;
+    line-height: 1.5;
+    overflow: visible;
+}
+
+.wrap * {
+    padding: 0;
+    margin: 0;
+}
+
+.wrap .info {
+    width: 286px;
+    height: 120px;
+    overflow: hidden;
+    background: #fff;
+}
+
+.wrap .info:nth-child(1) {
+    border: 0;
+    box-shadow: 0px 0px 0px 0px #888;
+}
+
+.info .title {
+    padding: 5px 0 0 10px;
+    height: 30px;
+    background: #eee;
+    border-bottom: 1px solid #ddd;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.info .body {
+    position: relative;
+    overflow: hidden;
+}
+
+.info .desc {
+    position: relative;
+    margin: 13px 0 0 13px;
+    height: 75px;
+}
+
+.desc .text {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.desc .jibun {
+    font-size: 11px;
+    color: #888;
+    margin-top: -2px;
+}
+
+.info .link {
+    color: #5085BB;
+}
