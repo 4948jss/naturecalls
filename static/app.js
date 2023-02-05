@@ -149,35 +149,34 @@ function getToilet() {
 }
 
 // toilettest 불러오기
-function testToilet() {
-    console.log("버튼 눌렀음")
-    $.ajax({
-        type: 'GET',
-        url: '/toiletInfo',
-        data: {},
-        success: function (response) {
-            let rows = response['toilets']
-            for (let i = 0; i < rows.length; i++) {
-                let num = rows[i]['toilet_num']
-                let toiletName = rows[i]['toilet_name']
-                let x = rows[i]['x_wgs84']
-                let y = rows[i]['y_wgs84']
-                let addr_r = rows[i]['toilet_address_road']
-                let addr_j = rows[i]['toilet_address_jibun']
-                let toiletclass = rows[i]['toilet_class']
-                let manager = rows[i]['toilet_manager']
-                let phone = rows[i]['toilet_phone']
-                let optime = rows[i]['toilet_optime']
-                let disabled = rows[i]['toilet_disabled']
-                let diaper = rows[i]['toilet_diaper']
-                let cctv = rows[i]['toilet_cctv']
-
-                console.log(num, toiletName, x, y)
-            }
-        }
-    })
-}
-
+// function testToilet() {
+//     console.log("버튼 눌렀음")
+//     $.ajax({
+//         type: 'GET',
+//         url: '/toiletInfo',
+//         data: {},
+//         success: function (response) {
+//             let rows = response['toilets']
+//             for (let i = 0; i < rows.length; i++) {
+//                 let num = rows[i]['toilet_num']
+//                 let toiletName = rows[i]['toilet_name']
+//                 let x = rows[i]['x_wgs84']
+//                 let y = rows[i]['y_wgs84']
+//                 let addr_r = rows[i]['toilet_address_road']
+//                 let addr_j = rows[i]['toilet_address_jibun']
+//                 let toiletclass = rows[i]['toilet_class']
+//                 let manager = rows[i]['toilet_manager']
+//                 let phone = rows[i]['toilet_phone']
+//                 let optime = rows[i]['toilet_optime']
+//                 let disabled = rows[i]['toilet_disabled']
+//                 let diaper = rows[i]['toilet_diaper']
+//                 let cctv = rows[i]['toilet_cctv']
+//
+//                 console.log(num, toiletName, x, y)
+//             }
+//         }
+//     })
+// }
 
 // 지우지말것 공공api에서 불러온 데이터 바탕으로 화장실 마커 생성하는 ajax코드
 // $.ajax({
