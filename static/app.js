@@ -51,7 +51,7 @@ function displayMarker(data) {
     var reviewRBtn = document.createElement('button');
     reviewRBtn.innerHTML = '리뷰보기';//버튼내용삽입
     reviewRBtn.onclick = function () {
-        location.href = '/review/edit/review_edit.html';//이동 경로
+        location.href = '/review/view/' + data['toilet_num'];//이동 경로
     };
     reviewRBtn.className = 'review'//버튼 클래스 부여(css사용)
     content.appendChild(reviewRBtn);//버튼 붙이기
@@ -60,7 +60,7 @@ function displayMarker(data) {
     var reviewWeBtn = document.createElement('button');
     reviewWeBtn.innerHTML = '리뷰쓰기';//버튼내용삽입
     reviewWeBtn.onclick = function () {
-        location.href = '/review/write/review_write.html';//이동 경로
+        location.href = '/review/write/' + data['toilet_num'];//이동 경로
     };
     reviewWeBtn.className = 'reviewWeBtn'//버튼 클래스 부여(css사용)
     content.appendChild(reviewWeBtn);//버튼 붙이기
@@ -138,6 +138,7 @@ function getToilet() {
                     '    </div>' +
                     '</div>';
                 position["latlng"] = new kakao.maps.LatLng(data[i]["y_wgs84"], data[i]["x_wgs84"]);
+                position["toilet_num"] = data[i]["toilet_num"]; // 마커 생성시 화장실 번호를 추가로 같이 넘겨주도록 함
                 positions.push(position);
             }
 
