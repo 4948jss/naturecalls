@@ -1,248 +1,263 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta property="og:title" content="급해! 화장실 리뷰 등록하기" />
-    <meta property="og:description" content="화장실 리뷰 등록하는 화면" />
-    <meta property="og:image" content="" />
+        <meta property="og:title" content="급해! 화장실 리뷰 등록하기"/>
+        <meta property="og:description" content="화장실 리뷰 등록하는 화면"/>
+        <meta property="og:image" content=""/>
 
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
-      crossorigin="anonymous"
-    />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-      crossorigin="anonymous"
-    ></script>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+              integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
+              crossorigin="anonymous">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+                integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+                crossorigin="anonymous"></script>
 
-    <title>급해! - 화장실 리뷰 등록하기</title>
+        <title>급해! - 화장실 리뷰 등록하기</title>
 
-    <link
-      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap"
-      rel="stylesheet"
-    />
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
 
-    <style>
-      * {
-        font-family: "Noto Sans KR", sans-serif;
-      }
+        <style>
+            * {
+                font-family: 'Noto Sans KR', sans-serif;
+            }
 
-      h1,
-      h2,
-      h3 {
-        font-weight: bold;
-      }
+            h1, h2, h3 {
+                font-weight: bold;
+            }
 
-      .wrap {
-        width: 95%;
-        max-width: 500px;
-        margin: 20px auto 20px auto;
-        padding: 20px;
-      }
-    </style>
-    <script>
-      $(document).ready(function () {
+            .wrap {
+                width: 95%;
+                max-width: 500px;
+                margin: 20px auto 20px auto;
+                padding: 20px;
+            }
 
-      });
+            .btn {
+                margin-top: 20px;
+            }
 
-      function save_review() {
-          let toilet_num = {{ toilet_num }}; // /review/write/<toilet_num>
+            .back {
+                color: black;
+            }
 
-          let name = $('#username').val();
-          let password = $('#password').val();
-          let cleanliness = $('#cleanliness').val();
-          let accessibility = $('#accessibility').val();
-          let equipment = $('#equipment').val();
-          let text_review = $('#text-review').val();
+            .star1, .star2, .star3 {
+                position: relative;
+                font-size: 3rem;
+                color: #ddd;
+                margin-left: 100px;
+            }
 
-          /* 필수 항목 누락된 게 있는지 체크 */
-          if (name === '') {
-              $('#username').focus();
-              alert("작성자명을 입력해주세요.");
-              return false;
-          }
-          if (password === '') {
-              $('#password').focus();
-              alert("비밀번호를 입력해주세요.");
-              return false;
-          }
-          if (cleanliness === '') {
-              $('#cleanliness').focus();
-              alert("청결도 평점을 매겨주세요.");
-              return false;
-          }
-          if (accessibility === '') {
-              $('#accessibility').focus();
-              alert("접근성 평점을 매겨주세요.");
-              return false;
-          }
-          if (equipment === '') {
-              $('#equipment').focus();
-              alert("비품 상태 평점을 매겨주세요.");
-              return false;
-          }
+            .star1 input, .star2 input, .star3 input {
+                width: 100%;
+                height: 100%;
+                position: absolute;
+                left: 0;
+                opacity: 0;
+                cursor: pointer;
+            }
 
-          /* 텍스트 리뷰 없다면 'none'으로 두기 */
-          if (text_review === '') {
-              text_review = 'none';
-          }
+            .star1 span, .star2 span, .star3 span {
+                width: 0;
+                position: absolute;
+                left: 0;
+                color: red;
+                overflow: hidden;
+                pointer-events: none;
+            }
 
-          /* 누락된 항목 없다면 등록할건지 물어보기 */
-          let confirmation = confirm("리뷰를 등록하시겠습니까?");
-          if (confirmation === true) {
-              $.ajax({
-                  type: 'POST',
-                  url: '/api/review/write',
-                  data: {
-                      toilet_num_give: toilet_num,
-                      name_give: name,
-                      password_give: password,
-                      cleanliness_give: cleanliness,
-                      accessibility_give: accessibility,
-                      equipment_give: equipment,
-                      text_give: text_review
-                  },
-                  success: function (response) {
-                      alert(response['msg']);
-                      // window.location.href("../review"); // 리뷰 조회 화면으로 이동
-                  }
-              });
-          } else {
-              alert('리뷰 등록이 취소되었습니다.');
-          }
-      }
-    </script>
-  </head>
-  <body>
-    <div class="wrap">
-      <h1>리뷰 작성</h1>
-      <p>해당 화장실은 어떠셨나요?</p>
-      <form name="review">
-        <div>
-          <div class="row g-3 align-items-center">
-            <div class="col-auto">
-              <label for="username" class="col-form-label">
-                <span style="font-weight: bold">*</span> 작성자명
-              </label>
-            </div>
-            <div class="col-auto">
-              <input
-                type="text"
-                name="username"
-                id="username"
-                class="form-control"
-                aria-describedby="usernameHelpInline"
-              />
-            </div>
-            <div class="col-auto">
-              <span id="usernameHelpInline" class="form-text">
-                닉네임도 괜찮아요.
-              </span>
-            </div>
-          </div>
-          <div class="row g-3 align-items-center mt-1">
-            <div class="col-auto">
-              <label for="password" class="col-form-label">
-                <span style="font-weight: bold">*</span> 비밀번호
-              </label>
-            </div>
-            <div class="col-auto">
-              <input
-                type="password"
-                name="password"
-                id="password"
-                class="form-control"
-                aria-describedby="passwordHelpInline"
-              />
-            </div>
-            <div class="col-auto">
-              <span id="passwordHelpInline" class="form-text">
-                리뷰 수정/삭제시 필요해요.
-              </span>
-            </div>
-          </div>
+        </style>
+        <script>
+            const drawStar1 = (target) => {
+                document.querySelector(`.star1 span`).style.width = `${target.value * 20}%`;
+            }
+
+            const drawStar2 = (target) => {
+                document.querySelector(`.star2 span`).style.width = `${target.value * 20}%`;
+            }
+
+            const drawStar3 = (target) => {
+                document.querySelector(`.star3 span`).style.width = `${target.value * 20}%`;
+            }
+
+        $(document).ready(function () {
+
+            });
+
+            let url = window.location.pathname;
+            let toilet_num = Number(url.split('/')[3]);
+
+            function save_review() {
+
+                let cleanliness = $('#cleanliness').val();
+                let accessibility = $('#accessibility').val();
+                let equipment = $('#equipment').val();
+                let text_review = $('#text-review').val();
+                let name = $('#username').val();
+                let password = $('#password').val();
+
+                /* 필수 항목 누락된 게 있는지 체크 */
+                if (cleanliness === '0') {
+                    $('#cleanliness').focus();
+                    alert("청결도 평점을 매겨주세요.");
+                    return false;
+                }
+                if (accessibility === '0') {
+                    $('#accessibility').focus();
+                    alert("접근성 평점을 매겨주세요.");
+                    return false;
+                }
+                if (equipment === '0') {
+                    $('#equipment').focus();
+                    alert("비품 상태 평점을 매겨주세요.");
+                    return false;
+                }
+                if (!name) {
+                    $('#username').focus();
+                    alert("작성자명을 입력해주세요.");
+                    return false;
+                }
+                if (!password) {
+                    $('#password').focus();
+                    alert("비밀번호를 입력해주세요.");
+                    return false;
+                }
+
+                /* 텍스트 리뷰 없다면 'none'으로 두기 */
+                if (!text_review) {
+                    text_review = 'none';
+                }
+
+                /* 누락된 항목 없다면 등록할건지 물어보기 */
+                let confirmation = confirm("리뷰를 등록하시겠습니까?");
+                if (confirmation === true) {
+                    $.ajax({
+                        type: 'POST',
+                        url: '/api/review/write',
+                        data: {
+                            toilet_num_give: toilet_num,
+                            name_give: name,
+                            password_give: password,
+                            cleanliness_give: cleanliness,
+                            accessibility_give: accessibility,
+                            equipment_give: equipment,
+                            text_give: text_review
+                        },
+                        success: function (response) {
+                            alert(response['msg']);
+                            window.location.href = "../view/" + toilet_num; // 리뷰 조회 화면으로 이동
+                        },
+                        error: function (errorResponse) {
+                            alert(errorResponse['msg']);
+                        }
+                    });
+                } else {
+                    alert('리뷰 등록이 취소되었습니다.');
+                }
+            }
+        </script>
+    </head>
+    <body>
+        <div class="wrap">
+            <a tabindex="0" class="back" role="button" onclick="window.history.back()"
+               data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="뒤로 가기">
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor"
+                     class="bi bi-arrow-left-short" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd"
+                          d="M12 8a.5.5 0 0 1-.5.5H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5a.5.5 0 0 1 .5.5z"/>
+                </svg>
+            </a>
+            <h1 class="mt-2">리뷰 작성</h1>
+            <p>해당 화장실은 어떠셨나요?</p>
+            <form name="review">
+                <div class="mt-4">
+                    <h3>청결도</h3>
+                    <p>
+                        <span style="font-weight: bold">*</span> 화장실은 청결했나요? (냄새, 청소 잘되었는지, 변기 막힘 등)
+                    </p>
+                    <span class="star1">
+                        ★★★★★
+                        <span>★★★★★</span>
+                        <input type="range" id="cleanliness" oninput="drawStar1(this)" value="0" step="1" min="0" max="5">
+                    </span>
+                </div>
+                <div class="mt-4">
+                    <h3>접근성</h3>
+                    <p>
+                        <span style="font-weight: bold">*</span> 화장실은 찾기 쉬웠나요?
+                    </p>
+                    <span class="star2">
+                        ★★★★★
+                        <span>★★★★★</span>
+                        <input type="range" id="accessibility" oninput="drawStar2(this)" value="0" step="1" min="0" max="5">
+                    </span>
+                </div>
+                <div class="mt-4">
+                    <h3>비품 상태</h3>
+                    <p>
+                        <span style="font-weight: bold">*</span> 휴지, 비누 등이 잘 구비되어 있었나요?
+                    </p>
+                    <span class="star3">
+                        ★★★★★
+                        <span>★★★★★</span>
+                        <input type="range" id="equipment" oninput="drawStar3(this)" value="0" step="1" min="0" max="5">
+                    </span>
+                </div>
+                <div class="mt-4">
+                    <h3>기타 하고싶은 말</h3>
+                    <div class="mb-3">
+                        <label for="text-review" class="form-label">다른 분이 참고할만한 내용이 있다면 작성해주세요.</label>
+                        <textarea class="form-control" id="text-review" rows="3"></textarea>
+                    </div>
+                </div>
+                <div>
+                    <h3>작성자 정보</h3>
+                    <div class="row g-3 align-items-center">
+                        <div class="col-auto">
+                            <label for="username" class="col-form-label">
+                                <span style="font-weight: bold">*</span> 작성자명
+                            </label>
+                        </div>
+                        <div class="col-auto">
+                            <input type="text" name="username" id="username" class="form-control"
+                                   aria-describedby="usernameHelpInline">
+                        </div>
+                        <div class="col-auto">
+                        <span id="usernameHelpInline" class="form-text">
+                            닉네임도 괜찮아요.
+                        </span>
+                        </div>
+                    </div>
+                    <div class="row g-3 align-items-center mt-1">
+                        <div class="col-auto">
+                            <label for="password" class="col-form-label">
+                                <span style="font-weight: bold">*</span> 비밀번호
+                            </label>
+                        </div>
+                        <div class="col-auto">
+                            <input type="password" name="password" id="password" class="form-control"
+                                   aria-describedby="passwordHelpInline">
+                        </div>
+                        <div class="col-auto">
+                        <span id="passwordHelpInline" class="form-text">
+                            리뷰 수정/삭제시 필요해요.
+                        </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="d-grid gap-2">
+                    <button class="btn btn-primary col" type="button" onclick="save_review()">리뷰 등록하기</button>
+                </div>
+            </form>
         </div>
-        <div class="mt-4">
-          <h3>청결도</h3>
-          <p>
-            <span style="font-weight: bold">*</span> 화장실은 청결했나요? (냄새,
-            청소 잘되었는지, 변기 막힘 등)
-          </p>
-          <select
-            class="form-select"
-            name="cleanliness"
-            id="cleanliness"
-            aria-label="cleanlinessScore"
-          >
-            <option value="" selected>별점을 선택해주세요 (1~5점)</option>
-            <option value="1">⭐ (1점)</option>
-            <option value="2">⭐⭐ (2점)</option>
-            <option value="3">⭐⭐⭐ (3점)</option>
-            <option value="4">⭐⭐⭐⭐ (4점)</option>
-            <option value="5">⭐⭐⭐⭐⭐ (5점)</option>
-          </select>
-        </div>
-        <div class="mt-4">
-          <h3>접근성</h3>
-          <p>
-            <span style="font-weight: bold">*</span> 화장실은 찾기 쉬웠나요?
-          </p>
-          <select
-            class="form-select"
-            name="accessibility"
-            id="accessibility"
-            aria-label="accessibilityScore"
-          >
-            <option value="" selected>별점을 선택해주세요 (1~5점)</option>
-            <option value="1">⭐ (1점)</option>
-            <option value="2">⭐⭐ (2점)</option>
-            <option value="3">⭐⭐⭐ (3점)</option>
-            <option value="4">⭐⭐⭐⭐ (4점)</option>
-            <option value="5">⭐⭐⭐⭐⭐ (5점)</option>
-          </select>
-        </div>
-        <div class="mt-4">
-          <h3>비품 상태</h3>
-          <p>
-            <span style="font-weight: bold">*</span> 휴지, 비누 등이 잘 구비되어
-            있었나요?
-          </p>
-          <select
-            class="form-select"
-            name="equipment"
-            id="equipment"
-            aria-label="equipmentScore"
-          >
-            <option value="" selected>별점을 선택해주세요 (1~5점)</option>
-            <option value="1">⭐ (1점)</option>
-            <option value="2">⭐⭐ (2점)</option>
-            <option value="3">⭐⭐⭐ (3점)</option>
-            <option value="4">⭐⭐⭐⭐ (4점)</option>
-            <option value="5">⭐⭐⭐⭐⭐ (5점)</option>
-          </select>
-        </div>
-        <div class="mt-4">
-          <h3>기타 하고싶은 말</h3>
-          <div class="mb-3">
-            <label for="text-review" class="form-label"
-              >다른 분이 참고할만한 내용이 있다면 작성해주세요.</label
-            >
-            <textarea class="form-control" id="text-review" rows="3"></textarea>
-          </div>
-        </div>
-        <div class="d-grid gap-2">
-          <button class="btn btn-primary" type="button" onclick="save_review()">
-            리뷰 등록하기
-          </button>
-        </div>
-      </form>
-    </div>
-  </body>
+        <script>
+            /* Bootstrap tooltip 기능 초기화 */
+            const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+            const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+        </script>
+    </body>
 </html>
