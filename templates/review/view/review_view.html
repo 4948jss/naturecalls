@@ -32,21 +32,25 @@
 
             .wrap {
                 width: 95%;
-                max-width: 500px;
+                max-width: 390px;
                 margin: 20px auto 20px auto;
                 padding: 20px;
             }
 
-            .back {
-                color: black;
-            }
-
-            .vertical-3dot {
+            .back, .map, .vertical-3dot {
                 color: black;
             }
 
             .edit-delete-btn-group {
                 display: none;
+            }
+
+            .averages {
+                font-size: 14px;
+            }
+
+            .card-subtitle {
+                font-size: small;
             }
         </style>
         <script>
@@ -77,7 +81,7 @@
                         let input_password = $('#delete-password').val();
 
                         if (password === input_password) {
-                            let confirmation = confirm("정말로 삭제하시겠습니까?");
+                            let confirmation = confirm("리뷰를 정말로 삭제하시겠어요?");
                             if (confirmation === true) {
                                 $.ajax({
                                     type: 'POST',
@@ -94,7 +98,7 @@
                                     }
                                 });
                             } else {
-                                alert('리뷰 삭제가 취소되었습니다.');
+                                alert('리뷰 삭제가 취소되었어요.');
                             }
                         } else {
                             alert("비밀번호가 맞지 않습니다.");
@@ -210,14 +214,22 @@
                           d="M12 8a.5.5 0 0 1-.5.5H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5a.5.5 0 0 1 .5.5z"/>
                 </svg>
             </a>
+            <a tabindex="0" class="map float-end" role="button" onclick="window.location.href='../../';"
+               data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="지도 보기">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-map"
+                     viewBox="0 0 16 16">
+                    <path fill-rule="evenodd"
+                          d="M15.817.113A.5.5 0 0 1 16 .5v14a.5.5 0 0 1-.402.49l-5 1a.502.502 0 0 1-.196 0L5.5 15.01l-4.902.98A.5.5 0 0 1 0 15.5v-14a.5.5 0 0 1 .402-.49l5-1a.5.5 0 0 1 .196 0L10.5.99l4.902-.98a.5.5 0 0 1 .415.103zM10 1.91l-4-.8v12.98l4 .8V1.91zm1 12.98 4-.8V1.11l-4 .8v12.98zm-6-.8V1.11l-4 .8v12.98l4-.8z"/>
+                </svg>
+            </a>
             <h1>화장실 리뷰</h1>
-            <p>해당 화장실 리뷰 목록입니다.</p>
+            <p>화장실 리뷰와 종합 평점을 확인해보세요!</p>
             <div class="overall-scores">
                 <div class="card mb-2">
                     <div class="card-body">
-                        <div class="row">
-                            <div class="col text-center align-middle border-2 border-end">종합 평점<br /><h2 id="overall-average">0.00</h2></div>
-                            <div class="col" style="padding-left: 20px">
+                        <div class="row d-flex">
+                            <div class="col align-self-center text-center">종합 평점<br /><h2 id="overall-average">0.00</h2></div>
+                            <div class="col averages align-self-center border-2 border-start" style="padding-left: 20px">
                                 청결도 평균: <span id="overall-cleanliness">0.00</span><br />
                                 접근성 평균: <span id="overall-accessibility">0.00</span><br />
                                 비품 상태 평균: <span id="overall-equipment">0.00</span>
@@ -258,7 +270,7 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            리뷰를 삭제하시겠습니까?<br />리뷰 등록시 기재했던 비밀번호를 입력해주세요.
+                            리뷰를 삭제할까요?<br />리뷰 등록시 기재했던 비밀번호를 입력해주세요.
                             <input type="password" name="password" id="delete-password" class="form-control mt-2"
                                    aria-describedby="passwordHelpInline">
                         </div>
@@ -271,9 +283,9 @@
             </div>
         </div>
         <script>
-           /* Bootstrap tooltip 기능 초기화 */
-           const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
-           const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+            /* Bootstrap tooltip 기능 초기화 */
+            const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+            const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
         </script>
     </body>
 </html>

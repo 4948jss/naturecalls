@@ -4,7 +4,7 @@
     left: 0;
     bottom: 40px;
     width: 288px;
-    height: 250px;
+    height: 180px;
     margin-left: -144px;
     text-align: center;
     font-size: 12px;
@@ -20,7 +20,7 @@
 
 .wrap .info {
     width: 286px;
-    height: 220px;
+    height: 160px;
     overflow: hidden;
     background: #fff;
 }
@@ -47,7 +47,7 @@
 .info .desc {
     position: relative;
     margin: 13px 0 0 13px;
-    height: 220px;
+    height: 160px;
 }
 
 .desc .text {

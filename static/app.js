@@ -3,10 +3,13 @@ const mapOption = {
     center: new kakao.maps.LatLng(37.566783, 126.978643), // 지도의 중심좌표
     level: 4, // 지도의 확대 레벨
 };
-// 테스트용커밋
-//전역변수 설정
-var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
-myLocation();//현위치에서 시작
+try {
+    var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+    myLocation();//현위치에서 시작
+} catch{
+    var errordiv = document.createElement("div");
+    errordiv.innerHTML = "카카오맵을 불러올 수 없습니다.";
+}
 
 
 // 지도에 마커를 표시하는 함수입니다
@@ -130,27 +133,27 @@ function getToilet() {
             let positions = [];
 
             for (i = 0; i < data.length; i++) {
+                const cctv = data[i]["toilet_cctv "] == "Y" ? " 📷 " : " 📷X "
+                const bell = data[i]["toilet_bell "] == "Y" ? " 🚨 " : " 🚨X "
+                const disabled = data[i]["toilet_disabled "] == "Y" ? " ♿ " : " ♿X "
+                const diaper = data[i]["toilet_diaper "] == "Y" ? " 🚼 " : " 🚼X "
                 const position = {};
                 // 성원님 이 부분부터 수정하시면 됩니다//
                 position["content"] = '<div class="wrap">' +
-                    '    <div class="info">' +
-                    '        <div class="title">' + data[i]["toilet_num"] + " : " + data[i]["toilet_name "] + '</div>' +
-                    '        <div class="body">' +
-                    '            <div class="desc">' +
-                    '                <div class="text">' + "구분 : " + data[i]["toilet_class "] + '</div>' +
-                    '                <div class="text">' + "지번주소 : " + data[i]["jibunAddr"] + '</div>' +
-                    '                <div class="text">' + "도로명주소 : " + data[i]["roadAddr"] + '</div>' +
-                    '                <div class="text">' + "관리자 : " + data[i]["toilet_manager "] + '</div>' +
-                    '                <div class="text">' + "전화번호 : " + data[i]["toilet_phone"] + '</div>' +
-                    '                <div class="text">' + "CCTV : " + data[i]["toilet_cctv "] + '</div>' +
-                    '                <div class="text">' + "신고벨 : " + data[i]["toilet_bell "] + '</div>' +
-                    '                <div class="text">' + "장애인 화장실 : " + data[i]["toilet_disabled "] + '</div>' +
-                    '                <div class="text">' + "기저귀 교환대 : " + data[i]["toilet_diaper "] + '</div>' +
-                    '                <div class="text">' + data[i]["y_wgs84"] + "    " + data[i]["x_wgs84"] + '</div>' +
-                    '            </div>' +
-                    '        </div>' +
-                    '    </div>' +
-                    '</div>';
+                        '    <div class="info">' +
+                        '        <div class="title">' + data[i]["toilet_name "] + '</div>' +
+                        '        <div class="body">' +
+                        '            <div class="desc">' +
+                        '                <div class="text">' + "구분 : " + data[i]["toilet_class "] + '</div>' +
+                        '                <div class="text">' + "지번주소 : " + data[i]["jibunAddr"] + '</div>' +
+                        '                <div class="text">' + "도로명주소 : " + data[i]["roadAddr"] + '</div>' +
+                        '                <div class="text">' + "관리자 : " + data[i]["toilet_manager "] + '</div>' +
+                        '                <div class="text">' + "전화번호 : " + data[i]["toilet_phone"] + '</div>' +
+                        '<div class="text">' + cctv + bell + disabled + diaper + '</div>' +
+                        '            </div>' +
+                        '        </div>' +
+                        '    </div>' +
+                        '</div>';
                 position["latlng"] = new kakao.maps.LatLng(data[i]["y_wgs84"], data[i]["x_wgs84"]);
                 position["toilet_num"] = data[i]["toilet_num"]; // 마커 생성시 화장실 번호를 추가로 같이 넘겨주도록 함
                 positions.push(position);

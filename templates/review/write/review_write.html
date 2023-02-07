@@ -32,7 +32,7 @@
 
             .wrap {
                 width: 95%;
-                max-width: 500px;
+                max-width: 390px;
                 margin: 20px auto 20px auto;
                 padding: 20px;
             }
@@ -41,7 +41,7 @@
                 margin-top: 20px;
             }
 
-            .back {
+            .back, .map {
                 color: black;
             }
 
@@ -49,7 +49,7 @@
                 position: relative;
                 font-size: 3rem;
                 color: #ddd;
-                margin-left: 100px;
+                margin-left: 50px;
             }
 
             .star1 input, .star2 input, .star3 input {
@@ -70,6 +70,9 @@
                 pointer-events: none;
             }
 
+            input#username, input#password {
+                width: 260px;
+            }
         </style>
         <script>
             const drawStar1 = (target) => {
@@ -133,7 +136,7 @@
                 }
 
                 /* 누락된 항목 없다면 등록할건지 물어보기 */
-                let confirmation = confirm("리뷰를 등록하시겠습니까?");
+                let confirmation = confirm("리뷰를 등록할까요?");
                 if (confirmation === true) {
                     $.ajax({
                         type: 'POST',
@@ -156,7 +159,7 @@
                         }
                     });
                 } else {
-                    alert('리뷰 등록이 취소되었습니다.');
+                    alert('리뷰 등록이 취소되었어요.');
                 }
             }
         </script>
@@ -171,13 +174,21 @@
                           d="M12 8a.5.5 0 0 1-.5.5H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5a.5.5 0 0 1 .5.5z"/>
                 </svg>
             </a>
+            <a tabindex="0" class="map float-end" role="button" onclick="window.location.href='../../';"
+               data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="지도 보기">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-map"
+                     viewBox="0 0 16 16">
+                    <path fill-rule="evenodd"
+                          d="M15.817.113A.5.5 0 0 1 16 .5v14a.5.5 0 0 1-.402.49l-5 1a.502.502 0 0 1-.196 0L5.5 15.01l-4.902.98A.5.5 0 0 1 0 15.5v-14a.5.5 0 0 1 .402-.49l5-1a.5.5 0 0 1 .196 0L10.5.99l4.902-.98a.5.5 0 0 1 .415.103zM10 1.91l-4-.8v12.98l4 .8V1.91zm1 12.98 4-.8V1.11l-4 .8v12.98zm-6-.8V1.11l-4 .8v12.98l4-.8z"/>
+                </svg>
+            </a>
             <h1 class="mt-2">리뷰 작성</h1>
-            <p>해당 화장실은 어떠셨나요?</p>
+            <p>해당 화장실은 어떠했나요?</p>
             <form name="review">
                 <div class="mt-4">
                     <h3>청결도</h3>
                     <p>
-                        <span style="font-weight: bold">*</span> 화장실은 청결했나요? (냄새, 청소 잘되었는지, 변기 막힘 등)
+                        <span style="font-weight: bold">*</span> 화장실은 청결했나요? (냄새, 청소 상태, 변기 막힘 등)
                     </p>
                     <span class="star1">
                         ★★★★★
@@ -210,7 +221,7 @@
                 <div class="mt-4">
                     <h3>기타 하고싶은 말</h3>
                     <div class="mb-3">
-                        <label for="text-review" class="form-label">다른 분이 참고할만한 내용이 있다면 작성해주세요.</label>
+                        <label for="text-review" class="form-label">화장실에 대한 리뷰를 남겨주세요.</label>
                         <textarea class="form-control" id="text-review" rows="3"></textarea>
                     </div>
                 </div>
@@ -224,12 +235,7 @@
                         </div>
                         <div class="col-auto">
                             <input type="text" name="username" id="username" class="form-control"
-                                   aria-describedby="usernameHelpInline">
-                        </div>
-                        <div class="col-auto">
-                        <span id="usernameHelpInline" class="form-text">
-                            닉네임도 괜찮아요.
-                        </span>
+                                   aria-describedby="usernameHelpInline" placeholder="닉네임도 괜찮아요.">
                         </div>
                     </div>
                     <div class="row g-3 align-items-center mt-1">
@@ -240,12 +246,7 @@
                         </div>
                         <div class="col-auto">
                             <input type="password" name="password" id="password" class="form-control"
-                                   aria-describedby="passwordHelpInline">
-                        </div>
-                        <div class="col-auto">
-                        <span id="passwordHelpInline" class="form-text">
-                            리뷰 수정/삭제시 필요해요.
-                        </span>
+                                   aria-describedby="passwordHelpInline" placeholder="리뷰 수정 / 삭제시 필요해요.">
                         </div>
                     </div>
                 </div>
