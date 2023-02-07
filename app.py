@@ -22,7 +22,7 @@ def home():
 
 @app.route('/report')
 def report():
-    return render_template('report/singofin.html')
+    return render_template('report/singo.html')
 
 # 리뷰 보기 화면 (/review/view/화장실번호)
 

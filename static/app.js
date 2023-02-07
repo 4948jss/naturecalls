@@ -69,7 +69,7 @@ function displayMarker(data) {
     var reportBtn = document.createElement('button');
     reportBtn.innerHTML = '신고하기';//버튼내용삽입
     reportBtn.onclick = function () {
-        location.href = '/report/singofin.html';//이동 경로
+        location.href = '/report';//이동 경로
     };
     reportBtn.className = 'reportBtn'//버튼 클래스 부여(css사용)
     content.appendChild(reportBtn);//버튼 붙이기
