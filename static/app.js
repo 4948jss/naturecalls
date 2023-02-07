@@ -105,6 +105,9 @@ function myLocation() {
 }
 
 function getToilet() {
+    var latlng = map.getCenter();
+    mylat = latlng.getLat();
+    mylng = latlng.getLng();
 
     //화장실 데이터 받아오기
     // 현재 해당 api는 현재 위치의 좌표값으로 받아오는 형태가 아님
