@@ -81,7 +81,7 @@
                         let input_password = $('#delete-password').val();
 
                         if (password === input_password) {
-                            let confirmation = confirm("정말로 삭제하시겠습니까?");
+                            let confirmation = confirm("리뷰를 정말로 삭제하시겠어요?");
                             if (confirmation === true) {
                                 $.ajax({
                                     type: 'POST',
@@ -98,7 +98,7 @@
                                     }
                                 });
                             } else {
-                                alert('리뷰 삭제가 취소되었습니다.');
+                                alert('리뷰 삭제가 취소되었어요.');
                             }
                         } else {
                             alert("비밀번호가 맞지 않습니다.");
