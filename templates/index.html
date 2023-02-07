@@ -1,80 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
+<head>
+    <meta charset="UTF-8"/>
     <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, user-scalable=yes"
+            name="viewport"
+            content="width=device-width, initial-scale=1, user-scalable=yes"
     />
     <title>급해!!!</title>
 
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
-      crossorigin="anonymous"
-    />
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-      crossorigin="anonymous"
-    ></script>
+
+    <link rel="stylesheet" href="/static/style.css" type="text/css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous"></script>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
     <style>
-      h1 {
-        font-weight: bold;
-      }
+        h1 {
+            font-weight: bold;
+        }
 
-      .main {
-        margin-top: 50px;
-        width: 390px;
-        background-position: center;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-      }
+        .main {
+            margin-top: 50px;
+            width: 390px;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
 
-      .map {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        margin: 10px 10px auto 10px;
-      }
+        .map {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 10px 10px auto 10px;
+        }
 
-      .findbutton {
-        width: 100px;
-        margin: auto;
-        display: block;
-      }
+        .findbutton {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
     </style>
 
     <script
-      type="text/javascript"
-      src="//dapi.kakao.com/v2/maps/sdk.js?appkey=1868ee8497f900b93026d5face3cb849"
+            type="text/javascript"
+            src="//dapi.kakao.com/v2/maps/sdk.js?appkey=1868ee8497f900b93026d5face3cb849"
     ></script>
     <script src="static/app.js" defer></script>
-  </head>
-  <body>
-    <div class="main">
-      <h1>급해!</h1>
-      <br />
-      <p>신호가 오면 망설이지 마세요!</p>
-      <p>🚨</p>
-      <button
-        type="button"
-        onclick="getToilet()"
-        class="btn btn-primary btn-lg"
-      >
-        이 지역 재탐색 ↻
-      </button>
-    </div>
-    <div>
-      <p id="result"></p>
-      <div id="map" class="map" style="width: 370px; height: 550px"></div>
-    </div>
-  </body>
+</head>
+<body>
+
+
+<div class="main">
+    <h1>급해!</h1><br>
+    <p>신호가 오면 망설이지 마세요!</p>
+    <p>🚨</p>
+</div>
+<div>
+    <button class="findbutton" onclick="getToilet()" type="button">찾아줘!!</button>
+    <!--    <button onclick="testToilet()" type="button">장실정보GET!</button>-->
+
+    <p id="result"></p>
+    <div id="map" class="map" style="width: 370px; height: 550px"></div>
+</div>
+</body>
 </html>
