@@ -13,6 +13,7 @@
             crossorigin="anonymous"></script>
 
     <title>불편 신고</title>
+
     <style>
         .mysingo {
             background-color: white;
@@ -24,77 +25,105 @@
 
         }
 
-        .form {
+        .wholeform {
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
         }
 
+        .space {
+            width: 20px;
+            height: auto;
+            display: inline-block;
+        }
+
+
     </style>
 </head>
 
 <body>
-<div class="form">
+<div class="wholeform">
     <div class="mysingo"></div>
-    <div class="btn-group-vertical">
-
-        <div class="d-grid gap-2 col-10 mx-auto">
+    <p></p>
+    <p></p>
+    <div class="btn-group">
+        <div><!--화장실 장소 불일치 체크박스-->
             <input type="checkbox" class="btn-check" id="no_toilet" autocomplete="off">
-            <label class="btn btn-outline-primary btn-sm" for="no_toilet">화장실이 장소에 없어요</label>
+            <label class="btn btn-outline-primary btn-sm" for="no_toilet">화장실 장소 불일치</label>
         </div>
-        <p>
-
-        </p>
-        <div class="d-grid gap-2 col-15 mx-auto">
+        <div class="space">
+        </div>
+        <div><!--운영시간 불일치 체크박스-->
             <input type="checkbox" class="btn-check" id="no_time" autocomplete="off">
-            <label class="btn btn-outline-primary btn-sm" for="no_time">운영시간 정보와 안 맞아요</label>
+            <label class="btn btn-outline-primary btn-sm" for="no_time">운영 시간 불일치</label>
         </div>
-        <p>
+    </div>
+    <p></p>
+    <div class="btn-group">
+        <div><!--문잠김 체크박스-->
+            <input type="checkbox" class="btn-check" id="rock_door" autocomplete="off">
+            <label class="btn btn-outline-primary btn-sm" for="rock_door">문 잠김</label>
+        </div>
+        <div class="space">
 
-        </p>
-        <div class="d-grid gap-2 col-20 mx-auto">
+        </div>
+        <div><!--관리자 통화 불가 체크박스-->
             <input type="checkbox" class="btn-check" id="no_answer" autocomplete="off">
-            <label class="btn btn-outline-primary btn-sm" for="no_answer">관리자가 전화를 안 받아요</label>
+            <label class="btn btn-outline-primary btn-sm" for="no_answer">관리자 통화 불가</label>
         </div>
-        <p>
+        <div class="space">
 
-        </p>
-        <div class="d-grid gap-2 col-16 mx-auto">
-            <input type="checkbox" class="btn-check" id="no_cctv" autocomplete="off">
-            <label class="btn btn-outline-primary btn-sm" for="no_cctv">CCTV가 없어요</label>
         </div>
-        <p>
-
-        </p>
-        <div class="d-grid gap-2 col-6 mx-auto">
+        <div><!--비상벨 미설치 체크박스-->
             <input type="checkbox" class="btn-check" id="no_bell" autocomplete="off">
-            <label class="btn btn-outline-primary btn-sm" for="no_bell">비상벨이 없어요</label>
+            <label class="btn btn-outline-primary btn-sm" for="no_bell">비상벨 미설치</label>
         </div>
-        <p>
 
-        </p>
-        <div class="d-grid gap-2 col-20 mx-auto">
+    </div>
+    <p></p>
+    <div class="btn-group">
+        <div><!--기저귀교환대 미설치 체크박스-->
             <input type="checkbox" class="btn-check" id="no_diaper" autocomplete="off">
-            <label class="btn btn-outline-primary btn-sm" for="no_diaper">기저귀 교환대가 없거나 고장 났어요</label>
+            <label class="btn btn-outline-primary btn-sm" for="no_diaper">기저귀교환대 미설치</label>
         </div>
+        <div class="space">
+        </div>
+        <div><!--CCTV 미설치 체크박스-->
+            <input type="checkbox" class="btn-check" id="no_cctv" autocomplete="off">
+            <label class="btn btn-outline-primary btn-sm" for="no_cctv">CCTV 미설치</label>
+        </div>
+    </div>
+    <p></p>
+        <!--23.02.06 텍스트 박스 내용&버튼 id 값 데이터 넣기 -->
+        <p><textarea placeholder="기타 불편 사항"></textarea></p>
+
+
+
+    <div class="d-grid gap-2 col-20 mx-auto">
+
 
         <p></p>
         <p></p>
-        <p></p>
-        <p></p>
-        <!--        <div class="d-grid gap-2 col-13 mx-auto">-->
-        <!--            <button type="button" onclick="alert('신고가 완료 되었습니다.')" class="btn btn-primary btn-lg">불편 신고 제출하기</button>-->
-        <!--        </div>-->
-        <button id="submit-button">신고 접수</button>
+        <p><span id="result"></span></p>
+        <button type="button" id="submit-button" class="btn btn-primary" onclick="clickbnt()">신고접수하기</button>
 
         <div id="myModal" class="modal">
             <div class="modal-content">
                 <span class="close"></span>
-                <p>신고가 접수 되었습니다.</p>
+                <p>불편 신고 되었습니다.</p>
+                <p>감사합니다.</p>
+                <div class="modal_close">
+                    <button type="button" class="btn btn-primary">done</button>
+                </div>
             </div>
         </div>
+
+
         <script>
+
+            const close = document.querySelector(".modal_close");
+
             var modal = document.getElementById("myModal");
             var btn = document.getElementById("submit-button");
             var span = document.getElementsByClassName("close")[0];
@@ -112,12 +141,28 @@
                     modal.style.display = "none";
                 }
             }
+            close.addEventListener("click", e => {
+                modal.style.display = "none"
+            })
+
+            function clickbnt() {
+                const arr = [];
+                const bnt = document.getElementsByClassName("btn-check");
+                for (i = 0; i < bnt.lenth; i++) {
+                    if (bnt[i].checked == true) {
+                        arr.push(bnt[i].value);
+                    }
+                }
+            }
+
+
+
         </script>
 
         <style>
             .modal {
                 display: none;
-                position: fixed;
+                position: center;
                 z-index: 1;
                 left: 0;
                 top: 0;
@@ -133,15 +178,12 @@
                 margin: 15% auto;
                 padding: 20px;
                 border: 1px solid #888;
-                width: 80%;
+                width: 20%;
+                justify-content: center;
+                align-items: center;
+
             }
 
-            .close {
-                color: #aaa;
-                float: right;
-                font-size: 28px;
-                font-weight: bold;
-            }
 
             .close:hover,
             .close:focus {
@@ -149,11 +191,10 @@
                 text-decoration: none;
                 cursor: pointer;
             }
+
         </style>
 
 
-        <!--                <p>팝업 내용 샬라샬라...</p>-->
-        <!--                <button id="button">닫기</button>-->
     </div>
 </div>
 </body>
