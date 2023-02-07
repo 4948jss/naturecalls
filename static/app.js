@@ -13,9 +13,9 @@ myLocation();//현위치에서 시작
 function displayMarker(data) {
     //이미지src
     var imageSrc =
-        "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
+        "static/mapmarker.png";
     //이미지 size
-    var imageSize = new kakao.maps.Size(24, 35);
+    var imageSize = new kakao.maps.Size(50, 50);
 
     // 마커 이미지 생성
     var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
