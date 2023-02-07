@@ -88,6 +88,10 @@ function myLocation() {
         var lat = position.coords.latitude;
         var lng = position.coords.longitude;
 
+        // 현재 위치의 위도와 경도 __ 오차범위가 현재 매우 큰 상태
+        mylat = position.coords.latitude;
+        mylng = position.coords.longitude;
+
         // 지도 표시
         const location = new kakao.maps.LatLng(lat, lng);
 
@@ -118,33 +122,39 @@ function getToilet() {
             let positions = [];
 
             for (i = 0; i < data.length; i++) {
-                const position = {};
-                position["content"] = '<div class="wrap">' +
-                    '    <div class="info">' +
-                    '        <div class="title">' + data[i]["toilet_num"] + " : " + data[i]["toilet_name "] + '</div>' +
-                    '        <div class="body">' +
-                    '            <div class="desc">' +
-                    '                <div class="text">' + "구분 : " + data[i]["toilet_class "] + '</div>' +
-                    '                <div class="text">' + "지번주소 : " + data[i]["jibunAddr"] + '</div>' +
-                    '                <div class="text">' + "도로명주소 : " + data[i]["roadAddr"] + '</div>' +
-                    '                <div class="text">' + "관리자 : " + data[i]["toilet_manager "] + '</div>' +
-                    '                <div class="text">' + "전화번호 : " + data[i]["toilet_phone"] + '</div>' +
-                    '                <div class="text">' + "CCTV : " + data[i]["toilet_cctv "] + '</div>' +
-                    '                <div class="text">' + "신고벨 : " + data[i]["toilet_bell "] + '</div>' +
-                    '                <div class="text">' + "장애인 화장실 : " + data[i]["toilet_disabled "] + '</div>' +
-                    '                <div class="text">' + "기저귀 교환대 : " + data[i]["toilet_diaper "] + '</div>' +
-                    '            </div>' +
-                    '        </div>' +
-                    '    </div>' +
-                    '</div>';
-                position["latlng"] = new kakao.maps.LatLng(data[i]["y_wgs84"], data[i]["x_wgs84"]);
-                position["toilet_num"] = data[i]["toilet_num"]; // 마커 생성시 화장실 번호를 추가로 같이 넘겨주도록 함
-                positions.push(position);
-            }
+                if ((data[i]["y_wgs84"] < mylat + 0.01 && data[i]["y_wgs84"] > mylat - 0.01) && (data[i]["x_wgs84"] < mylng + 0.01 && data[i]["x_wgs84"] > mylng - 0.01)) {
 
-            for (let i = 0; i < positions.length; i++) {
-                var toilet = positions[i];
-                displayMarker(toilet);
+
+                    const position = {};
+                    position["content"] = '<div class="wrap">' +
+                        '    <div class="info">' +
+                        '        <div class="title">' + data[i]["toilet_num"] + " : " + data[i]["toilet_name "] + '</div>' +
+                        '        <div class="body">' +
+                        '            <div class="desc">' +
+                        '                <div class="text">' + "구분 : " + data[i]["toilet_class "] + '</div>' +
+                        '                <div class="text">' + "지번주소 : " + data[i]["jibunAddr"] + '</div>' +
+                        '                <div class="text">' + "도로명주소 : " + data[i]["roadAddr"] + '</div>' +
+                        '                <div class="text">' + "관리자 : " + data[i]["toilet_manager "] + '</div>' +
+                        '                <div class="text">' + "전화번호 : " + data[i]["toilet_phone"] + '</div>' +
+                        '                <div class="text">' + "CCTV : " + data[i]["toilet_cctv "] + '</div>' +
+                        '                <div class="text">' + "신고벨 : " + data[i]["toilet_bell "] + '</div>' +
+                        '                <div class="text">' + "장애인 화장실 : " + data[i]["toilet_disabled "] + '</div>' +
+                        '                <div class="text">' + "기저귀 교환대 : " + data[i]["toilet_diaper "] + '</div>' +
+                        '                <div class="text">' + data[i]["y_wgs84"] + "    " + data[i]["x_wgs84"] + '</div>' +
+                        '            </div>' +
+                        '        </div>' +
+                        '    </div>' +
+                        '</div>';
+                    position["latlng"] = new kakao.maps.LatLng(data[i]["y_wgs84"], data[i]["x_wgs84"]);
+                    position["toilet_num"] = data[i]["toilet_num"]; // 마커 생성시 화장실 번호를 추가로 같이 넘겨주도록 함
+                    positions.push(position);
+
+
+                    for (let i = 0; i < positions.length; i++) {
+                        var toilet = positions[i];
+                        displayMarker(toilet);
+                    }
+                }
             }
         },
     });
