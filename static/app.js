@@ -133,7 +133,7 @@ function getToilet() {
                         cctv = " 📷 "
                     }
                     else {
-                        cctv = " 📷 "
+                        cctv = " 📷X "
                     }
                     if (data[i]["toilet_bell "] == "Y"){
                         bell = " 🔔 "
@@ -145,13 +145,13 @@ function getToilet() {
                         disabled = " ♿ "
                     }
                     else {
-                        disabled = " ♿ "
+                        disabled = " ♿X "
                     }
                     if (data[i]["toilet_diaper "] == "Y"){
                         diaper = " 🚼 "
                     }
                     else {
-                        diaper = " 🚼 "
+                        diaper = " 🚼X "
                     }
 
                     const position = {};
