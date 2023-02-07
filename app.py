@@ -12,21 +12,18 @@ db = client.Naturecalls
 collection = db["ToiletInfo"]
 
 # 랜딩페이지
-
-
 @app.route('/')
 def home():
     return render_template('index.html')
+
+
 # 아름
-
-
 @app.route('/report')
 def report():
     return render_template('report/singo.html')
 
+
 # 리뷰 보기 화면 (/review/view/화장실번호)
-
-
 @app.route('/review/view/<toilet_num_receive>')
 def review_view_page(toilet_num_receive):
     return render_template('review/view/review_view.html', toilet_num=toilet_num_receive)
@@ -36,8 +33,7 @@ def review_view_page(toilet_num_receive):
 @app.route('/api/review/view', methods=["GET"])
 def review_view():
     toilet_num = request.args.get('toilet_num_give')
-    reviews = list(db.ToiletReview.find(
-        {'toilet_num': int(toilet_num), 'is_deleted': "no"}))
+    reviews = list(db.ToiletReview.find({'toilet_num': int(toilet_num), 'is_deleted': "no"}))
     return jsonify({'reviews': reviews})
 
 
@@ -45,8 +41,7 @@ def review_view():
 @app.route('/api/review/single_view', methods=["GET"])
 def review_single_view():
     review_num = request.args.get('review_num_give')
-    review = db.ToiletReview.find_one(
-        {'_id': int(review_num), 'is_deleted': "no"})
+    review = db.ToiletReview.find_one({'_id': int(review_num), 'is_deleted': "no"})
     return jsonify({'review': review})
 
 
@@ -79,8 +74,7 @@ def review_post():
     equipment_receive = request.form['equipment_give']
     text_receive = request.form['text_give']
 
-    total_score = int(cleanliness_receive) + \
-        int(accessibility_receive) + int(equipment_receive)
+    total_score = int(cleanliness_receive) + int(accessibility_receive) + int(equipment_receive)
     overall_grade = round(total_score / 3, 2)
 
     review = {
@@ -100,10 +94,10 @@ def review_post():
         db.ToiletReview.insert_one(review)
 
     except:
-        return jsonify({'msg': '리뷰 등록에 실패했습니다.'})
+        return jsonify({'msg': '리뷰 등록에 실패했어요.'})
 
     else:
-        return jsonify({'msg': '리뷰 등록이 완료되었습니다.'})
+        return jsonify({'msg': '리뷰 등록을 완료했어요.'})
 
 
 # 리뷰 수정 화면 (/review/edit/리뷰번호)
@@ -123,21 +117,21 @@ def review_edit_post():
     equipment_receive = request.form['equipment_give']
     text_receive = request.form['text_give']
 
-    total_score = int(cleanliness_receive) + \
-        int(accessibility_receive) + int(equipment_receive)
+    total_score = int(cleanliness_receive) + int(accessibility_receive) + int(equipment_receive)
     overall_grade = round(total_score / 3, 2)
 
     try:
         db.ToiletReview.update_one({'_id': int(review_num_receive)},
-                                   {'$set': {'name': name_receive, 'password': password_receive, 'cleanliness': int(cleanliness_receive),
-                                             'accessibility': int(accessibility_receive), 'equipment': int(equipment_receive), 'overall_grade': overall_grade,
-                                             'text': text_receive}
-                                    })
+            {'$set': {'name': name_receive, 'password': password_receive, 'cleanliness': int(cleanliness_receive),
+                     'accessibility': int(accessibility_receive), 'equipment': int(equipment_receive), 'overall_grade': overall_grade,
+                     'text': text_receive}
+        })
+
     except:
-        return jsonify({'msg': '리뷰 수정에 실패했습니다.'})
+        return jsonify({'msg': '리뷰 수정에 실패했어요.'})
 
     else:
-        return jsonify({'msg': '리뷰 수정이 완료되었습니다.'})
+        return jsonify({'msg': '리뷰 수정을 완료했어요.'})
 
 
 # 리뷰 내용 삭제하는 API
@@ -146,25 +140,23 @@ def review_delete():
     review_num_receive = request.form['review_num_give']
 
     try:
-        db.ToiletReview.update_one({'_id': int(review_num_receive)}, {
-                                   '$set': {'is_deleted': "yes"}})
+        db.ToiletReview.update_one({'_id': int(review_num_receive)}, {'$set': {'is_deleted': "yes"}})
+
     except:
-        return jsonify({'msg': '리뷰 삭제에 실패했습니다.'})
+        return jsonify({'msg': '리뷰 삭제에 실패했어요.'})
 
     else:
-        return jsonify({'msg': '리뷰 삭제가 완료되었습니다.'})
+        return jsonify({'msg': '리뷰 삭제를 완료했어요.'})
+
 
 # 서울 전체 화장실 정보 GET
-
-
 @app.route("/toiletInfo", methods=["GET"])
 def toilet_get():
     toilet_list = list(db.ToiletInfo.find({}, {'_id': False}))
     return jsonify({'toilets': toilet_list})
 
+
 # 내 주변 화장실 정보만 GET
-
-
 @app.route("/neartoiletInfo", methods=["GET"])
 def neartoilet_get():
     y_wgs84_receive = request.form['y_wgs84_give']
