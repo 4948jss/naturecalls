@@ -136,10 +136,10 @@ function getToilet() {
                         cctv = " 📷X "
                     }
                     if (data[i]["toilet_bell "] == "Y"){
-                        bell = " 🔔 "
+                        bell = " 🚨 "
                     }
                     else {
-                        bell = " 🔕 "
+                        bell = " 🚨X "
                     }
                     if (data[i]["toilet_disabled "] == "Y"){
                         disabled = " ♿ "
