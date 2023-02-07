@@ -167,12 +167,22 @@ def toilet_get():
 
 @app.route("/neartoiletInfo", methods=["GET"])
 def neartoilet_get():
-    y_wgs84_receive = request.form['y_wgs84_give']
-    x_wgs84_receive = request.form['x_wgs84_give']
+    # y_wgs84_receive = request.form['y_wgs84_give']
+    # x_wgs84_receive = request.form['x_wgs84_give']
+    x = request.args.get('lng')
+    y = request.args.get('lat')
+
+    # 파리미터 문자열을  float으로 변환한 뒤에 calculate
+    # 현재 db 위경도가 문자열로 존재. 타입매칭을 위해 계산값을 문자열로 변환
+    # db를 그냥 decimal로 두는게 최적화에 좋음 (현재 타입변환하는 cost가 존재)
+    min_x = str(float(x) - 0.008)
+    max_x = str(float(x) + 0.008)
+    min_y = str(float(y) - 0.008)
+    max_y = str(float(y) + 0.008)
 
     try:
-        toilet_list = list(db.ToiletInfo.find({"y_wgs84": {"$gt": y_wgs84_receive - 0.004665, "$lt": y_wgs84_receive + 0.004845}}, {
-                           "x_wgs84": {"$gt": x_wgs84_receive - 0.004122, "$lt": x_wgs84_receive + 0.004168}}, {'_id': False}))
+        # 조씨의 쿼리문으로 해당 위경도 사이값 쿼리
+        toilet_list = list(db.ToiletInfo.find({"y_wgs84": {"$gt": min_y, "$lt": max_y}, "x_wgs84": {"$gt": min_x, "$lt": max_x}}, {'_id': False}))
         return jsonify({'toilets': toilet_list})
     except:
         return jsonify({'msg': '화장실 정보 조회에 실패하였습니다.'})
