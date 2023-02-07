@@ -17,12 +17,13 @@ collection = db["ToiletInfo"]
 @app.route('/')
 def home():
     return render_template('index.html')
-# 아름
+
 
 
 @app.route('/report')
 def report():
-    return render_template('report/singofin.html')
+    return render_template('report/singo.html')
+#신고하기
 
 # 리뷰 보기 화면 (/review/view/화장실번호)
 
