@@ -160,21 +160,6 @@ function getToilet() {
                         '            </ul>' +
                         '    </div>' +
                         '</div>';
-                // position["content"] = '<div class="wrap">' +
-                //         '    <div class="info">' +
-                //         '        <div class="title">' + data[i]["toilet_name "] + '</div>' +
-                //         '        <div class="body">' +
-                //         '            <div class="desc">' +
-                //         '                <div class="text">' + "구분 : " + data[i]["toilet_class "] + '</div>' +
-                //         '                <div class="text">' + "지번주소 : " + data[i]["jibunAddr"] + '</div>' +
-                //         '                <div class="text">' + "도로명주소 : " + data[i]["roadAddr"] + '</div>' +
-                //         '                <div class="text">' + "관리자 : " + data[i]["toilet_manager "] + '</div>' +
-                //         '                <div class="text">' + "전화번호 : " + data[i]["toilet_phone"] + '</div>' +
-                //         '<div class="text">' + cctv + bell + disabled + diaper + '</div>' +
-                //         '            </div>' +
-                //         '        </div>' +
-                //         '    </div>' +
-                //         '</div>';
                 position["latlng"] = new kakao.maps.LatLng(data[i]["y_wgs84"], data[i]["x_wgs84"]);
                 position["toilet_num"] = data[i]["toilet_num"]; // 마커 생성시 화장실 번호를 추가로 같이 넘겨주도록 함
                 positions.push(position);
