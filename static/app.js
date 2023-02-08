@@ -11,6 +11,8 @@ try {
     errordiv.innerHTML = "카카오맵을 불러올 수 없습니다.";
 }
 
+let currentMarker;
+
 
 // 지도에 마커를 표시하는 함수입니다
 function displayMarker(data) {
@@ -88,8 +90,8 @@ function myLocation() {
     // geolocation API를 사용하여 현재 위치 얻어오기
     navigator.geolocation.getCurrentPosition(function (position) {
         // 현재 위치의 위도와 경도 __ 오차범위가 현재 매우 큰 상태
-        var lat = position.coords.latitude;
-        var lng = position.coords.longitude;
+        const lat = position.coords.latitude;
+        const lng = position.coords.longitude;
 
         // 현재 위치의 위도와 경도 __ 오차범위가 현재 매우 큰 상태
         mylat = position.coords.latitude;
@@ -99,16 +101,22 @@ function myLocation() {
         const location = new kakao.maps.LatLng(lat, lng);
 
         // 현재 위치에 마커 표시 __ location 좌표로 이동 및 마커 설정
-        map.setCenter(location);
-        const marker = new kakao.maps.Marker({
-            map: map, // => 전역변수 값 사용
-            position: new kakao.maps.LatLng(lat, lng),
-        });
+        map.panTo(location);
+
+        if(currentMarker){
+            currentMarker.setPosition(location)
+        }else {
+            const marker = new kakao.maps.Marker({
+                map: map, // => 전역변수 값 사용
+                position: location,
+            });
+            currentMarker = marker
+        }
     });
 }
 
 function getToilet() {
-    var latlng = map.getCenter();
+    const latlng = map.getCenter();
     mylat = latlng.getLat();
     mylng = latlng.getLng();
 
@@ -139,21 +147,34 @@ function getToilet() {
                 const diaper = data[i]["toilet_diaper "] == "Y" ? " 🚼 " : " 🚼X "
                 const position = {};
                 // 성원님 이 부분부터 수정하시면 됩니다//
-                position["content"] = '<div class="wrap">' +
-                        '    <div class="info">' +
-                        '        <div class="title">' + data[i]["toilet_name "] + '</div>' +
-                        '        <div class="body">' +
-                        '            <div class="desc">' +
-                        '                <div class="text">' + "구분 : " + data[i]["toilet_class "] + '</div>' +
-                        '                <div class="text">' + "지번주소 : " + data[i]["jibunAddr"] + '</div>' +
-                        '                <div class="text">' + "도로명주소 : " + data[i]["roadAddr"] + '</div>' +
-                        '                <div class="text">' + "관리자 : " + data[i]["toilet_manager "] + '</div>' +
-                        '                <div class="text">' + "전화번호 : " + data[i]["toilet_phone"] + '</div>' +
-                        '<div class="text">' + cctv + bell + disabled + diaper + '</div>' +
-                        '            </div>' +
-                        '        </div>' +
+                position["content"] = '<div class="infoWrap">' +
+                        '    <div class="infoBox">' +
+                        '        <div class="infoBox-title">' + data[i]["toilet_name "] + '</div>' +
+                        '            <ul class="infoBox-ul">' +
+                        '                <li class="infoBox-li">' + "구분 : " + data[i]["toilet_class "] + '</li>' +
+                        '                <li class="infoBox-li">' + "지번주소 : " + data[i]["jibunAddr"] + '</li>' +
+                        '                <li class="infoBox-li">' + "도로명주소 : " + data[i]["roadAddr"] + '</li>' +
+                        '                <li class="infoBox-li">' + "관리자 : " + data[i]["toilet_manager "] + '</li>' +
+                        '                <li class="infoBox-li">' + "전화번호 : " + data[i]["toilet_phone"] + '</li>' +
+                        '<div class="infoBox-infoGroup">' + cctv + bell + disabled + diaper + '</div>' +
+                        '            </ul>' +
                         '    </div>' +
                         '</div>';
+                // position["content"] = '<div class="wrap">' +
+                //         '    <div class="info">' +
+                //         '        <div class="title">' + data[i]["toilet_name "] + '</div>' +
+                //         '        <div class="body">' +
+                //         '            <div class="desc">' +
+                //         '                <div class="text">' + "구분 : " + data[i]["toilet_class "] + '</div>' +
+                //         '                <div class="text">' + "지번주소 : " + data[i]["jibunAddr"] + '</div>' +
+                //         '                <div class="text">' + "도로명주소 : " + data[i]["roadAddr"] + '</div>' +
+                //         '                <div class="text">' + "관리자 : " + data[i]["toilet_manager "] + '</div>' +
+                //         '                <div class="text">' + "전화번호 : " + data[i]["toilet_phone"] + '</div>' +
+                //         '<div class="text">' + cctv + bell + disabled + diaper + '</div>' +
+                //         '            </div>' +
+                //         '        </div>' +
+                //         '    </div>' +
+                //         '</div>';
                 position["latlng"] = new kakao.maps.LatLng(data[i]["y_wgs84"], data[i]["x_wgs84"]);
                 position["toilet_num"] = data[i]["toilet_num"]; // 마커 생성시 화장실 번호를 추가로 같이 넘겨주도록 함
                 positions.push(position);
@@ -167,56 +188,3 @@ function getToilet() {
     });
 }
 
-
-// 지우지말것 공공api에서 불러온 데이터 바탕으로 화장실 마커 생성하는 ajax코드
-// $.ajax({
-//             type: "GET",
-//             url: "http://openapi.seoul.go.kr:8088/6b716f6a533439343237426a4d7a75/json/SearchPublicToiletPOIService/1/30/",
-//             data: {},
-//             success: function (response) {
-//                 // api 성공시 로직
-//
-//                 // 화장실 데이터 리스트 생성
-//                 const data = response["SearchPublicToiletPOIService"]["row"];
-//                 let positions = [];
-//
-//                 for (var i in data) {
-//                     const position = {};
-//                     position["FNAME"] = data[i]["FNAME"];
-//                     position["latlng"] = new kakao.maps.LatLng(
-//                         data[i]["Y_WGS84"],
-//                         data[i]["X_WGS84"]
-//                     );
-//                     positions.push(position);
-//                 }
-//
-//                 // 화장실 마커 생성
-//                 if (positions.length > 0) {
-//                     var imageSrc =
-//                         "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
-//
-//                     for (var i = 0; i < positions.length; i++) {
-//                         // spread
-//                         const {FNAME, latlng} = positions[i];
-//
-//                         // 마커 이미지 크기
-//                         var imageSize = new kakao.maps.Size(24, 35);
-//
-//                         // 마커 이미지 생성
-//                         var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
-//
-//                         // 마커 생성
-//                         const marker = new kakao.maps.Marker({
-//                             map: map, // 지도 => 전역변수 값 사용
-//                             position: latlng, // 마커 표시 위치
-//                             title: FNAME, // 마커 타이틀
-//                             image: markerImage, // 마커 이미지
-//                         });
-//                     }
-//                 } else {
-//                     // 데이터가 없을 경우,
-//                     alert("현재위치에 화장실이 없습니다.");
-//                     return;
-//                 }
-//             },
-//         });
