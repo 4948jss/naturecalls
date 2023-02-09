@@ -49,7 +49,7 @@ function displayMarker(data) {
     closeBtn.onclick = function () {
         overlay.setMap(null);
     };
-    closeBtn.className = 'close'//버튼 클래스 부여(css사용)
+    closeBtn.className = 'overBtn'//버튼 클래스 부여(css사용)
     content.appendChild(closeBtn);//버튼 붙이기
 
     //리뷰보기 버튼
@@ -58,7 +58,7 @@ function displayMarker(data) {
     reviewRBtn.onclick = function () {
         location.href = '/review/view/' + data['toilet_num'];//이동 경로
     };
-    reviewRBtn.className = 'review'//버튼 클래스 부여(css사용)
+    reviewRBtn.className = 'overBtn'//버튼 클래스 부여(css사용)
     content.appendChild(reviewRBtn);//버튼 붙이기
 
     //리뷰쓰기 버튼
@@ -67,7 +67,7 @@ function displayMarker(data) {
     reviewWeBtn.onclick = function () {
         location.href = '/review/write/' + data['toilet_num'];//이동 경로
     };
-    reviewWeBtn.className = 'reviewWeBtn'//버튼 클래스 부여(css사용)
+    reviewWeBtn.className = 'overBtn'//버튼 클래스 부여(css사용)
     content.appendChild(reviewWeBtn);//버튼 붙이기
 
     //신고하기버튼
@@ -76,7 +76,7 @@ function displayMarker(data) {
     reportBtn.onclick = function () {
         location.href = '/report';//이동 경로
     };
-    reportBtn.className = 'reportBtn'//버튼 클래스 부여(css사용)
+    reportBtn.className = 'overBtn'//버튼 클래스 부여(css사용)
     content.appendChild(reportBtn);//버튼 붙이기
 
     overlay.setContent(content);
@@ -141,10 +141,10 @@ function getToilet() {
             let positions = [];
 
             for (i = 0; i < data.length; i++) {
-                const cctv = data[i]["toilet_cctv "] == "Y" ? " 📷 " : " 📷X "
-                const bell = data[i]["toilet_bell "] == "Y" ? " 🚨 " : " 🚨X "
-                const disabled = data[i]["toilet_disabled "] == "Y" ? " ♿ " : " ♿X "
-                const diaper = data[i]["toilet_diaper "] == "Y" ? " 🚼 " : " 🚼X "
+                const cctv = data[i]["toilet_cctv "] == "Y" ? " 📷O " : " 📷X "
+                const bell = data[i]["toilet_bell "] == "Y" ? " 🚨O " : " 🚨X "
+                const disabled = data[i]["toilet_disabled "] == "Y" ? " ♿O " : " ♿X "
+                const diaper = data[i]["toilet_diaper "] == "Y" ? " 🚼O " : " 🚼X "
                 const position = {};
                 // 성원님 이 부분부터 수정하시면 됩니다//
                 position["content"] = '<div class="infoWrap">' +
