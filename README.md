@@ -17,4 +17,4 @@ python flask, mongoDB, Amazon EC2
 github, slack, notion, figma, miro
 
 ## 주소
-https://toiletsos.shop
+https://toiletsos.shop (현재 운영 중단)
